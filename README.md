@@ -1,5 +1,5 @@
-Role Name
-=========
+Ansible Role InfluxDB
+=====================
 
 Fully configurable [InfluxDB](https://influxdata.com/time-series-platform/influxdb/) installation for Linux Debian.  
 You can manage your users and databases with `influxdb_users` and `influxdb_databases` variables.
