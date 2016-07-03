@@ -1,0 +1,74 @@
+---
+
+- name: Install for debian
+  include: install_debian.yml
+  when: ansible_distribution == 'Debian'
+
+- name: Write config
+  become: true
+  become_user: "{{ influxdb_install_user }}"
+  template:
+    src: influxdb.conf.j2
+    dest: "{{ influxdb_config_file }}"
+    group: "{{ influxdb_group }}"
+    owner: "{{ influxdb_user }}"
+    backup: yes
+  notify:
+    - restart influxdb
+  tags:
+    - influxdb
+
+- name: start influxdb service
+  become: true
+  become_user: "{{ influxdb_install_user }}"
+  service:
+    name: influxdb
+    state: started
+  tags:
+    - influxdb
+
+- name: copy database management script
+  become: true
+  become_user: "{{ influxdb_install_user }}"
+  copy:
+    src: manage_influx_database.sh
+    dest: "{{ influxdb_config_dir }}/manage_influx_database.sh"
+    owner: "{{ influxdb_user }}"
+    group: "{{ influxdb_group }}"
+    mode: 0755
+  tags:
+    - influxdb
+
+- name: Manage databases
+  become: true
+  become_user: "{{ influxdb_install_user }}"
+  command: "{{ influxdb_config_dir }}/manage_influx_database.sh {{ item }}"
+  register: manage_influx_database_result
+  changed_when: "manage_influx_database_result.rc == 10"
+  failed_when: "manage_influx_database_result.rc != 0 and manage_influx_database_result.rc != 10"
+  with_items: "{{ influxdb_databases|default([]) }}"
+  tags:
+    - influxdb
+
+- name: copy user management script
+  become: true
+  become_user: "{{ influxdb_install_user }}"
+  copy:
+    src: manage_influx_user.sh
+    dest: "{{ influxdb_config_dir }}/manage_influx_user.sh"
+    owner: "{{ influxdb_user }}"
+    group: "{{ influxdb_group }}"
+    mode: 0755
+  tags:
+    - influxdb
+
+- name: Manage users and rights
+  become: true
+  become_user: "{{ influxdb_install_user }}"
+  command: "{{ influxdb_config_dir }}/manage_influx_user.sh --user-type {{ item.type }} --user-name {{ item.name }} --user-password {{ item.password }} {{ item.rights | default([]) | join(' ') }}"
+  register: manage_influx_user_result
+  changed_when: "manage_influx_user_result.rc == 10"
+  failed_when: "manage_influx_user_result.rc != 0 and manage_influx_user_result.rc != 10"
+  with_items: "{{ influxdb_users }}"
+  tags:
+    - influxdb

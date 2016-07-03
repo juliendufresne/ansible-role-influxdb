@@ -1,0 +1,125 @@
+{{ ansible_managed|comment }}
+reporting-disabled = {{ influxdb_config__global__reporting_disabled }}
+
+[meta]
+  dir                  = "{{ influxdb_config__meta__dir }}"
+  retention-autocreate = {{ influxdb_config__meta__retention_autocreate }}
+  logging-enabled      = {{ influxdb_config__meta__logging_enabled }}
+  pprof-enabled        = {{ influxdb_config__meta__pprof_enabled }}
+  lease-duration       = "{{ influxdb_config__meta__lease_duration }}"
+
+[data]
+  enabled                            = {{ influxdb_config__data__enabled }}
+  dir                                = "{{ influxdb_config__data__dir }}"
+  engine                             = "tsm1"
+  wal-dir                            = "{{ influxdb_config__data__wal_dir }}"
+  wal-logging-enabled                = {{ influxdb_config__data__wal_logging_enabled }}
+  data-logging-enabled               = {{ influxdb_config__data__data_logging_enabled }}
+  query-log-enabled                  = {{ influxdb_config__data__query_log_enabled }}
+  cache-max-memory-size              = {{ influxdb_config__data__cache_max_memory_size }}
+  cache-snapshot-memory-size         = {{ influxdb_config__data__cache_snapshot_memory_size }}
+  cache-snapshot-write-cold-duration = "{{ influxdb_config__data__cache_snapshot_write_cold_duration }}"
+  compact-min-file-count             = {{ influxdb_config__data__compact_min_file_count }}
+  compact-full-write-cold-duration   = "{{ influxdb_config__data__compact_full_write_cold_duration }}"
+  max-points-per-block               = {{ influxdb_config__data__max_points_per_block }}
+
+[cluster]
+  shard-writer-timeout   = "{{ influxdb_config__cluster__shard_writer_timeout }}" # The time within which a remote shard must respond to a write request__
+  write-timeout          = "{{ influxdb_config__cluster__write_timeout }}" # The time within which a write request must complete on the cluster__
+  max-concurrent-queries = {{ influxdb_config__cluster__max_concurrent_queries }} # The maximum number of concurrent queries that can run__ 0 to disable__
+  query-timeout          = "{{ influxdb_config__cluster__query_timeout }}" # The time within a query must complete before being killed automatically__ 0s to disable__
+  max-select-point       = {{ influxdb_config__cluster__max_select_point }} # The maximum number of points to scan in a query__ 0 to disable__
+  max-select-series      = {{ influxdb_config__cluster__max_select_series }} # The maximum number of series to select in a query__ 0 to disable__
+  max-select-buckets     = {{ influxdb_config__cluster__max_select_buckets }} # The maximum number of buckets to select in an aggregate query__ 0 to disable__
+
+[retention]
+  enabled        = {{ influxdb_config__retention__enabled }}
+  check-interval = "{{ influxdb_config__retention__check_interval }}"
+
+[shard-precreation]
+  enabled        = {{ influxdb_config__shard_precreation__enabled }}
+  check-interval = "{{ influxdb_config__shard_precreation__check_interval }}"
+  advance-period = "{{ influxdb_config__shard_precreation__advance_period }}"
+
+[monitor]
+  store-enabled  = {{ influxdb_config__monitor__store_enabled }} # Whether to record statistics internally__
+  store-database = "{{ influxdb_config__monitor__store_database }}" # The destination database for recorded statistics
+  store-interval = "{{ influxdb_config__monitor__store_interval }}" # The interval at which to record statistics
+
+[admin]
+  enabled           = {{ influxdb_config__admin__enabled }}
+  bind-address      = "{{ influxdb_config__admin__bind_address }}"
+  https-enabled     = {{ influxdb_config__admin__https_enabled }}
+  https-certificate = "{{ influxdb_config__admin__https_certificate }}"
+
+[http]
+  enabled           = {{ influxdb_config__http__enabled }}
+  bind-address      = "{{ influxdb_config__http__bind_address }}"
+  auth-enabled      = {{ influxdb_config__http__auth_enabled }}
+  log-enabled       = {{ influxdb_config__http__log_enabled }}
+  write-tracing     = {{ influxdb_config__http__write_tracing }}
+  pprof-enabled     = {{ influxdb_config__http__pprof_enabled }}
+  https-enabled     = {{ influxdb_config__http__https_enabled }}
+  https-certificate = "{{ influxdb_config__http__https_certificate }}"
+  max-row-limit     = {{ influxdb_config__http__max_row_limit }}
+
+[[graphite]]
+  enabled           = {{ influxdb_config__graphite__enabled }}
+  database          = "{{ influxdb_config__graphite__database }}"
+  bind-address      = "{{ influxdb_config__graphite__bind_address }}"
+  protocol          = "{{ influxdb_config__graphite__protocol }}"
+  consistency-level = "{{ influxdb_config__graphite__consistency_level }}"
+  batch-size        = {{ influxdb_config__graphite__batch_size }}
+  batch-pending     = {{ influxdb_config__graphite__batch_pending }}
+  batch-timeout     = "{{ influxdb_config__graphite__batch_timeout }}"
+  udp-read-buffer   = {{ influxdb_config__graphite__udp_read_buffer }}
+  separator         = "{{ influxdb_config__graphite__separator }}"
+{% if influxdb_config__graphite__tags|length %}
+  tags              = ["{{ influxdb_config__graphite__tags|join('", "') }} "]
+{% endif %}
+{% if influxdb_config__graphite__templates|length %}
+  templates = [
+{% for template in influxdb_config__graphite__templates %}
+    "{{ template }}",
+{% endfor %}
+  ]
+{% endif %}
+
+[[collectd]]
+  enabled       = {{ influxdb_config__collectd__enabled }}
+  bind-address  = "{{ influxdb_config__collectd__bind_address }}"
+  database      = "{{ influxdb_config__collectd__database }}"
+  typesdb       = "{{ influxdb_config__collectd__typesdb }}"
+  batch-size    = {{ influxdb_config__collectd__batch_size }} # will flush if this many points get buffered
+  batch-pending = {{ influxdb_config__collectd__batch_pending }} # number of batches that may be pending in memory
+  batch-timeout = "{{ influxdb_config__collectd__batch_timeout }}" # will flush at least this often even if we haven't hit buffer limit
+  read-buffer   = {{ influxdb_config__collectd__read_buffer }} # UDP Read buffer size, 0 means OS default__ UDP listener will fail if set above OS max__
+
+[[opentsdb]]
+  enabled           = {{ influxdb_config__opentsdb__enabled }}
+  bind-address      = "{{ influxdb_config__opentsdb__bind_address }}"
+  database          = "{{ influxdb_config__opentsdb__database }}"
+  retention-policy  = "{{ influxdb_config__opentsdb__retention_policy }}"
+  consistency-level = "{{ influxdb_config__opentsdb__consistency_level }}"
+  tls-enabled       = {{ influxdb_config__opentsdb__tls_enabled }}
+  certificate       = "{{ influxdb_config__opentsdb__certificate }}"
+  log-point-errors  = {{ influxdb_config__opentsdb__log_point_errors }} # Log an error for every malformed point__
+  batch-size        = {{ influxdb_config__opentsdb__batch_size }} # will flush if this many points get buffered
+  batch-pending     = {{ influxdb_config__opentsdb__batch_pending }} # number of batches that may be pending in memory
+  batch-timeout     = "{{ influxdb_config__opentsdb__batch_timeout }}" # will flush at least this often even if we haven't hit buffer limit
+
+[[udp]]
+  enabled          = {{ influxdb_config__udp__enabled }}
+  bind-address     = "{{ influxdb_config__udp__bind_address }}"
+  database         = "{{ influxdb_config__udp__database }}"
+  retention-policy = "{{ influxdb_config__udp__retention_policy }}"
+  batch-size       = {{ influxdb_config__udp__batch_size }} # will flush if this many points get buffered
+  batch-pending    = {{ influxdb_config__udp__batch_pending }} # number of batches that may be pending in memory
+  batch-timeout    = "{{ influxdb_config__udp__batch_timeout }}" # will flush at least this often even if we haven't hit buffer limit
+  read-buffer      = {{ influxdb_config__udp__read_buffer }} # UDP Read buffer size, 0 means OS default__ UDP listener will fail if set above OS max__
+  udp-payload-size = {{ influxdb_config__udp__udp_payload_size }}
+
+[continuous_queries]
+  log-enabled  = {{ influxdb_config__continuous_queries__log_enabled }}
+  enabled      = {{ influxdb_config__continuous_queries__enabled }}
+  run-interval = "{{ influxdb_config__continuous_queries__run_interval }}" # interval for how often continuous queries will be checked if they need to run
