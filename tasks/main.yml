@@ -9,7 +9,7 @@
   become_user: "{{ influxdb_install_user }}"
   template:
     src: influxdb.conf.j2
-    dest: "{{ influxdb_config_file }}"
+    dest: "{{ influxdb_config_dir }}/{{ influxdb_config_file }}"
     group: "{{ influxdb_group }}"
     owner: "{{ influxdb_user }}"
     backup: yes

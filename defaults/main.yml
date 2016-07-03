@@ -4,26 +4,11 @@ influxdb_install_user: "root"
 influxdb_user: "influxdb"
 influxdb_group: "influxdb"
 influxdb_config_dir: "/etc/influxdb"
-influxdb_config_file: "/etc/influxdb/influxdb.conf"
+influxdb_config_file: "influxdb.conf"
 
 influxdb_users: []
-# Examples
-#  - type: admin
-#    name: admin
-#    password: admin
-#  - type: user
-#    name: grafana
-#    password: grafana
-#    rights:
-#      - "measurement:READ"
-#  - type: user
-#    name: telegraf
-#    password: telegraf
-#    rights:
-#      - "measurement:WRITE"
 
-influxdb_databases:
-  - _internal
+influxdb_databases: ["_internal"]
 
 influxdb_config__global__reporting_disabled: "false"
 influxdb_config__meta__dir: "/var/lib/influxdb/meta"
