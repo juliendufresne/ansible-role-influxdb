@@ -1,6 +1,8 @@
 Ansible Role InfluxDB
 =====================
 
+[![Build Status](https://travis-ci.org/juliendufresne/ansible-role-influxdb.svg?branch=master)](https://travis-ci.org/juliendufresne/ansible-role-influxdb)
+
 Fully configurable [InfluxDB](https://influxdata.com/time-series-platform/influxdb/) installation for Linux Debian.  
 You can manage your users and databases with `influxdb_users` and `influxdb_databases` variables.
 
