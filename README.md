@@ -3,7 +3,7 @@ Ansible Role InfluxDB
 
 [![Build Status](https://travis-ci.org/juliendufresne/ansible-role-influxdb.svg?branch=master)](https://travis-ci.org/juliendufresne/ansible-role-influxdb)
 
-Fully configurable [InfluxDB](https://influxdata.com/time-series-platform/influxdb/) installation for Linux Debian.  
+Fully configurable [InfluxDB](https://influxdata.com/time-series-platform/influxdb/) installation for Debian/Ubuntu Linux.  
 You can manage your users and databases with `influxdb_users` and `influxdb_databases` variables.
 
 Requirements
@@ -189,9 +189,9 @@ Including an example of how to use your role (for instance, with variables passe
 License
 -------
 
-BSD, MIT
+MIT / BSD
 
 Author Information
 ------------------
 
-None for now.
+This role was created in 2016 by [Julien Dufresne](http://www.juliendufresne.fr).

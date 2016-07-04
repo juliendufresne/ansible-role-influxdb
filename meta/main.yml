@@ -124,11 +124,11 @@ galaxy_info:
   #  - quantal
   #  - raring
   #  - saucy
-  #  - trusty
+    - trusty
   #  - utopic
   #  - vivid
-  #  - wily
-  #  - xenial
+    - wily
+    - xenial
   #- name: SLES
   #  versions:
   #  - all
