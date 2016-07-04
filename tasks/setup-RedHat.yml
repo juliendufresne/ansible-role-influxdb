@@ -1,0 +1,38 @@
+---
+
+- name: Install libselinux-python.
+  become: true
+  become_user: "{{ influxdb_install_user }}"
+  yum:
+    name: libselinux-python
+    state: installed
+  tags:
+    - influxdb
+    - packages
+
+- name: Add Influxdb repository.
+  become: true
+  become_user: "{{ influxdb_install_user }}"
+  yum_repository:
+    state: present
+    description: InfluxDB Repository - RHEL $releasever
+    name: InfluxDB
+    baseurl: https://repos.influxdata.com/rhel/$releasever/$basearch/stable
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://repos.influxdata.com/influxdb.key
+  tags:
+    - influxdb
+    - packages
+
+- name: Install Influxdb.
+  become: true
+  become_user: "{{ influxdb_install_user }}"
+  yum:
+    name: influxdb
+    state: installed
+  notify:
+    - restart Influxdb
+  tags:
+    - influxdb
+    - packages

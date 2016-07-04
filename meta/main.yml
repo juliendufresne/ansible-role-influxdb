@@ -1,6 +1,6 @@
 galaxy_info:
   author: Julien Dufresne
-  description: Fully configurable influxdb installation for Linux Debian.
+  description: Fully configurable influxdb installation for Debian/Ubuntu Linux.
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
@@ -31,12 +31,12 @@ galaxy_info:
   # platform on this list, let us know and we'll get it added!
   #
   platforms:
-  #- name: EL
-  #  versions:
+  - name: EL
+    versions:
   #  - all
   #  - 5
-  #  - 6
-  #  - 7
+    - 6
+    - 7
   #- name: GenericUNIX
   #  versions:
   #  - all
@@ -159,7 +159,7 @@ galaxy_info:
   
   galaxy_tags:
     - influxdb
-    - time-series
+    - timeseries
     - database
     - storage
     - tsdb

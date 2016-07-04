@@ -1,6 +1,6 @@
 ---
 
-- name: Ensure the system can use the HTTPS transport for APT
+- name: Ensure the system can use the HTTPS transport for APT.
   become: true
   become_user: "{{ influxdb_install_user }}"
   stat:
@@ -10,7 +10,7 @@
     - influxdb
     - packages
 
-- name: Install HTTPS transport for APT
+- name: Install APT HTTPS transport.
   become: true
   become_user: "{{ influxdb_install_user }}"
   apt:
@@ -21,7 +21,7 @@
     - influxdb
     - packages
 
-- name: Download apt key
+- name: Download Influxdb apt key.
   become: true
   become_user: "{{ influxdb_install_user }}"
   apt_key:
@@ -31,7 +31,7 @@
     - influxdb
     - packages
 
-- name: Add apt repository
+- name: Add Influxdb repository.
   become: true
   become_user: "{{ influxdb_install_user }}"
   apt_repository:
@@ -42,15 +42,15 @@
     - influxdb
     - packages
 
-- name: Install package
+- name: Install Influxdb.
   become: true
   become_user: "{{ influxdb_install_user }}"
   apt:
     name: influxdb
-    state: present
+    state: installed
     update_cache: yes
   notify:
-    - restart influxdb
+    - restart Influxdb
   tags:
     - influxdb
     - packages

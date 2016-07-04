@@ -1,0 +1,10 @@
+---
+# Wrapper to have a clean main.yml file
+
+- name: Setup for debian base distribution (Debian, Ubuntu)
+  include: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Install for RedHat base distribution (RedHat, CentOS)
+  include: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
