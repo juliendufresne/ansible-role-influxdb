@@ -31,26 +31,13 @@
     - influxdb
     - packages
 
-- name: Add apt repository for debian wheezy
+- name: Add apt repository
   become: true
   become_user: "{{ influxdb_install_user }}"
   apt_repository:
-    repo: "deb https://repos.influxdata.com/debian wheezy stable"
+    repo: "deb https://repos.influxdata.com/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable"
     filename: "influxdb"
     state: present
-  when: ansible_distribution_major_version == '7'
-  tags:
-    - influxdb
-    - packages
-
-- name: Add apt repository for debian jessie
-  become: true
-  become_user: "{{ influxdb_install_user }}"
-  apt_repository:
-    repo: "deb https://repos.influxdata.com/debian jessie stable"
-    filename: "influxdb"
-    state: present
-  when: ansible_distribution_major_version == '8'
   tags:
     - influxdb
     - packages

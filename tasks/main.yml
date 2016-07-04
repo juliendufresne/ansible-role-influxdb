@@ -2,7 +2,7 @@
 
 - name: Install for debian
   include: install_debian.yml
-  when: ansible_distribution == 'Debian'
+  when: ansible_os_family == 'Debian'
 
 - name: Write config
   become: true
