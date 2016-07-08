@@ -1,31 +1,25 @@
 #!/usr/bin/env bash
 
 usage() {
-  echo "Usage: ./manage_influx_database.sh DATABASE_NAME"
-}
-
-influxcmd() {
-  local cmd="$1"
-
-  echo "Execute command \"${cmd}\""
-  influx -execute "${cmd}"
-
+    echo "Usage: ./manage_influx_database.sh DATABASE_NAME"
 }
 
 if [ $# -ne 1 ]
 then
-  usage
-  exit 1
+    usage
+    exit 1
 fi
 
 DATABASE_NAME="$1"
 CHANGED=0
 
-RESULT=$(influx -execute 'SHOW DATABASES' | grep "^${DATABASE_NAME}")
-if [ $? -ne 0 ]
+if influx -execute 'SHOW DATABASES' | grep -q "^${DATABASE_NAME}"
 then
-  influxcmd "CREATE DATABASE ${DATABASE_NAME}"
-  exit 10
+    exit 0
 fi
 
-exit 0
+if ! influx -execute "CREATE DATABASE ${DATABASE_NAME}"
+then
+    exit 1
+fi
+exit 10
