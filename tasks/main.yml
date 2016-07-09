@@ -27,5 +27,14 @@
   tags:
     - influxdb
 
+- name: Wait for influx to be reachable
+  wait_for:
+    connect_timeout: 2
+    delay: 0
+    host: 127.0.0.1
+    port: 8086
+    state: started
+    timeout: 20
+
 - name: Manage databases and users
   include: administration.yml
