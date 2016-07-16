@@ -3,7 +3,7 @@ Ansible Role InfluxDB
 
 [![Build Status](https://travis-ci.org/juliendufresne/ansible-role-influxdb.svg?branch=master)](https://travis-ci.org/juliendufresne/ansible-role-influxdb)
 
-Fully configurable [InfluxDB](https://influxdata.com/time-series-platform/influxdb/) installation for Debian/Ubuntu Linux.  
+Fully configurable [InfluxDB](https://influxdata.com/time-series-platform/influxdb/) installation and management.  
 You can manage your users and databases with `influxdb_users` and `influxdb_databases` variables.
 
 Supported platforms
@@ -31,8 +31,7 @@ _Table generated with [juliendufresne/test-ansible-roles](https://github.com/jul
 Requirements
 ------------
 
-Tested with ansible 2.1.0  
-Should work for ansible >= 1.9 (usage of `become` and `become_user`)
+This role requires ansible 2.1.0+ (apt_repository use filename)  
 
 Role Variables
 --------------
