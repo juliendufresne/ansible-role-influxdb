@@ -8,18 +8,13 @@
   changed_when: "manage_influx_database_result.rc == 10"
   failed_when: "manage_influx_database_result.rc != 0 and manage_influx_database_result.rc != 10"
   with_items: "{{ influxdb_databases }}"
-  tags:
-    - influxdb
-    - administration
 
-- name: Manage users and rights
-  become: true
-  become_user: "{{ influxdb_install_user }}"
-  script: "manage_influx_user.sh --user-type {{ item.type }} --user-name {{ item.name }} --user-password {{ item.password }} {{ item.rights | default([]) | join(' ') }}"
-  register: manage_influx_user_result
-  changed_when: "manage_influx_user_result.rc == 10"
-  failed_when: "manage_influx_user_result.rc != 0 and manage_influx_user_result.rc != 10"
+- name: manage users
+  influxdb_user:
+    name: "{{ item.name }}"
+    password: "{{ item.password|default(None) }}"
+    state: "{{ item.state|default(present) }}"
+    admin: "{{ item.admin|default(False) }}"
+    grants: "{{ item.grants|default(None) }}"
+    append_grants: "{{ item.append_grants|default(False) }}"
   with_items: "{{ influxdb_users }}"
-  tags:
-    - influxdb
-    - administration

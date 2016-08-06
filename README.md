@@ -9,29 +9,37 @@ You can manage your users and databases with `influxdb_users` and `influxdb_data
 Supported platforms
 -------------------
 
-_Table generated with [juliendufresne/test-ansible-roles](https://github.com/juliendufresne/test-ansible-roles)_
-
-
 | Distribution           | Last check date     | From scratch    | Idempotency |
 | ---------------------- | ------------------- | --------------- | ----------- |
-| CentOS 6.8 (Final)     | 2016-07-11 11:23:49 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
-| CentOS 7.2.1511 (Core) | 2016-07-11 11:27:08 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
-| Debian 7.9 (wheezy)    | 2016-07-11 11:29:36 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
-| Debian 7.10 (wheezy)   | 2016-07-11 11:33:07 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
-| Debian 8.2 (jessie)    | 2016-07-11 11:40:48 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
-| Debian 8.3 (jessie)    | 2016-07-11 11:44:25 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
-| Debian 8.4 (jessie)    | 2016-07-11 11:48:05 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
-| Ubuntu 12.04 (precise) | 2016-07-11 11:51:31 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
-| Ubuntu 14.04 (trusty)  | 2016-07-11 11:55:06 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
-| Ubuntu 15.04 (vivid)   | 2016-07-11 11:59:19 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
-| Ubuntu 15.10 (wily)    | 2016-07-11 12:03:42 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
-| Ubuntu 16.04 (xenial)  | 2016-07-11 16:22:36 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+| CentOS 7.2.1511 (Core) | 2016-08-06 18:40:07 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+| Debian 7.10 (wheezy)   | 2016-08-06 18:41:39 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+| Debian 8.4 (jessie)    | 2016-08-06 18:43:44 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+| Ubuntu 12.04 (precise) | 2016-08-06 18:45:21 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+| Ubuntu 14.04 (trusty)  | 2016-08-06 18:47:32 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+| Ubuntu 15.04 (vivid)   | 2016-08-06 18:49:37 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+| Ubuntu 15.10 (wily)    | 2016-08-06 18:51:39 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+| Ubuntu 16.04 (xenial)  | 2016-08-06 18:53:35 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
 
+> _Table generated with [test-ansible-roles](https://github.com/juliendufresne/test-ansible-roles)_
 
 Requirements
 ------------
 
 This role requires ansible 2.1.0+ (apt_repository use filename)  
+
+Module influxdb_user
+--------------------
+
+This role contains a module to manage your influxdb users.
+It can:
+- Ensure a user is present or absent
+- create an admin user or a classic user
+- manage user's database grants access (NO, READ, WRITE or ALL privileges)
+- append your specified grants to the existing ones
+
+For more information about this module, please see its [dedicated documentation](docs/module_influxdb_user.md)
+
+> *Note:* You can use this module independently or via the variable `influxdb_users`
 
 Role Variables
 --------------

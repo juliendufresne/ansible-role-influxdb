@@ -38,3 +38,6 @@
 
 - name: Manage databases and users
   include: administration.yml
+  tags:
+    - influxdb
+    - administration
