@@ -13,7 +13,7 @@
   influxdb_user:
     name: "{{ item.name }}"
     password: "{{ item.password|default(None) }}"
-    state: "{{ item.state|default(present) }}"
+    state: "{{ item.state|default('present') }}"
     admin: "{{ item.admin|default(False) }}"
     grants: "{{ item.grants|default(None) }}"
     append_grants: "{{ item.append_grants|default(False) }}"
