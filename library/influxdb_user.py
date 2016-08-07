@@ -194,7 +194,7 @@ def main():
     grants        = module.params["grants"]
     append_grants = module.boolean(module.params["append_grants"])
 
-    if grants is not None:
+    if grants is not None and grants != "":
         try:
             grants = grants_unpack(grants)
         except Exception:
