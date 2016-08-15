@@ -71,24 +71,19 @@ For each entry, the script will:
 Example:
 ```yml
 influxdb_users:
-  - type: admin
-    name: admin
+  - name: admin
+    admin: yes
     password: admin
-  - type: user
-    name: grafana
+  - name: grafana
     password: grafana
-    rights:
-      - "measurement:READ" # Gives READ access to the measurement table for user grafana
+    grants: "measurement:READ" # Gives READ access to the measurement table for user grafana
   - type: user
     name: telegraf
     password: telegraf
-    rights:
-      - "measurement:WRITE" # Gives WRITE access to the measurement table for user telegraf
-  - type: user
-    name: john
+    grants: "measurement:WRITE" # Gives WRITE access to the measurement table for user telegraf
+  - name: john
     password: john
-    rights:
-      - "measurement:ALL" # Gives READ and WRITE access to the measurement table for user telegraf
+    grants: "measurement:ALL" # Gives READ and WRITE access to the measurement table for user telegraf
 ```
 _For safety reasons, it does not remove any databases._
 
