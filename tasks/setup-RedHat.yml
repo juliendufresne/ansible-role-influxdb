@@ -5,7 +5,7 @@
   become_user: "{{ influxdb_install_user }}"
   yum:
     name: libselinux-python
-    state: installed
+    state: present
   tags:
     - influxdb
     - packages
@@ -30,7 +30,7 @@
   become_user: "{{ influxdb_install_user }}"
   yum:
     name: influxdb
-    state: installed
+    state: present
   notify:
     - restart Influxdb
   tags:

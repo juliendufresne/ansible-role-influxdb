@@ -47,7 +47,7 @@
   become_user: "{{ influxdb_install_user }}"
   apt:
     name: influxdb
-    state: installed
+    state: present
     update_cache: yes
   notify:
     - restart Influxdb
